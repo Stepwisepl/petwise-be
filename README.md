@@ -30,6 +30,15 @@ $ mvnw.cmd clean install
 
 Optional: If you are working on IntelliJ IDEA, you may add [Maven wrapper support](https://plugins.jetbrains.com/plugin/10633-maven-wrapper-support/versions) plugin to the IDE.
 
+### Google API key
+
+To run this project locally, ask for a json file with the API key and add its path the following environmental variable in project configuration:
+```
+GOOGLE_APPLICATION_CREDENTIALS="your-path-to-the-file.json"
+```
+![add-api-key-image](readme-images/add-api-key.png)
+
+[Google authentication documentation](https://cloud.google.com/docs/authentication/getting-started)
 ## Running tests
 
 Run all backend tests with the following command in the root directory:
