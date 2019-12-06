@@ -15,6 +15,16 @@ To clone this repository, execute the following in the command line:
 $ https://gitlab.com/stepwise/petwise/petwise-backend.git
 ```
 
+### Database
+> Connection to database is not required now.
+
+To set up the postgres database specified in the `application.properties` file run the following command in the project main directory:
+```bash
+$ docker-compose up
+```
+
+Until issue [PET-6](https://stepwisepl.atlassian.net/browse/PET-6) is fixed, please remove `postgres` directory (`data/postgres`) if you want to recreate the image.
+
 ### Maven wrapper support
 To ensure fully encapsulated build setup provided within the project, Spring Boot provides maven wrapper.
 
