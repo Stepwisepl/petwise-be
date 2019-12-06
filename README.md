@@ -39,12 +39,23 @@ GOOGLE_APPLICATION_CREDENTIALS="your-path-to-the-file.json"
 ![add-api-key-image](readme-images/add-api-key.png)
 
 [Google authentication documentation](https://cloud.google.com/docs/authentication/getting-started)
+
 ## Running tests
+
+> Configure tests to use the `GOOGLE_APPLICATION_CREDENTIALS` variable.
 
 Run all backend tests with the following command in the root directory:
 ```bash
 $ ./mvnw test
 ```
+
+You can also start the application and manually test the API in Postman - using photos that are already provided for you in the `resources` directory:
+![test-in-postman-image](readme-images/test-in-postman.png)
+
+List of urls that will work:
+* `http://localhost:8080/api/test?filepath=test-pictures/dog1.jpg`
+* `http://localhost:8080/api/test?filepath=test-pictures/dog2.jpg`
+* `http://localhost:8080/api/test?filepath=test-pictures/dog3.jpg`
 
 ## API documentation
 
