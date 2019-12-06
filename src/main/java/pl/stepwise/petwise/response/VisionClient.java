@@ -1,4 +1,4 @@
-package pl.stepwise.petwise;
+package pl.stepwise.petwise.response;
 
 import com.google.cloud.vision.v1.AnnotateImageRequest;
 import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
