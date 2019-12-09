@@ -26,19 +26,49 @@ class VisionControllerTest {
     private MockMvc mvc;
 
     @Test
-    void test() throws Exception {
-        String dirPath = "/api/test";
-        mvc.perform(get(dirPath + "?filepath=test-pictures/dog1.jpg"))
+    void shouldGetLabelsForClearImage() throws Exception {
+        String route = "/api/test/labels";
+        mvc.perform(get(route + "?filepath=test-pictures/dog1.jpg"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Beagle")))
                 .andDo(print());
-        mvc.perform(get(dirPath + "?filepath=test-pictures/dog2.jpg"))
+        mvc.perform(get(route + "?filepath=test-pictures/dog3.jpg"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Beagle")))
+                .andDo(print());
+    }
+
+    @Test
+    void shouldRecognizeDogBreedInProperlyCroppedImage() throws Exception {
+        String route = "/api/test/labels";
+        mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Chair")))
                 .andDo(print());
-        mvc.perform(get(dirPath + "?filepath=test-pictures/dog3.jpg"))
+        mvc.perform(get(route + "?filepath=test-pictures/dog2-cropped.jpg"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Retriever")))
+                .andDo(print());
+        mvc.perform(get(route + "?filepath=test-pictures/dog2-cropped-properly.png"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Beagle")))
                 .andDo(print());
+    }
+
+    @Test
+    void shouldGetObjectsForGivenImage() throws Exception {
+        String route = "/api/test/objects";
+        mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Dog")))
+                .andExpect(content().string(containsString("Pillow")))
+                .andDo(print());
+    }
+
+    @Test
+    void shouldGetCropHintsForGivenImage() throws Exception {
+        String route = "/api/test/crop";
+        mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
+                .andExpect(status().isOk());
     }
 }

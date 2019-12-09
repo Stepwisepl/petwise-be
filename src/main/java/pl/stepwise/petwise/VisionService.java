@@ -1,33 +1,39 @@
 package pl.stepwise.petwise;
 
-import com.google.cloud.vision.v1.AnnotateImageRequest;
 import com.google.cloud.vision.v1.AnnotateImageResponse;
 import org.springframework.stereotype.Service;
-import pl.stepwise.petwise.request.RequestFactory;
-import pl.stepwise.petwise.response.ResponseProvider;
-import pl.stepwise.petwise.response.VisionAnnotation;
-import pl.stepwise.petwise.response.VisionAnnotationExtractor;
+import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
+import pl.stepwise.petwise.response.VisionClient;
+import pl.stepwise.petwise.response.VisionMapper;
+import pl.stepwise.petwise.response.domain.PetwiseLabel;
+import pl.stepwise.petwise.response.domain.PetwiseLocalizedObject;
+import pl.stepwise.petwise.response.domain.PetwiseCropHint;
 
 import java.util.List;
 
 @Service
 public class VisionService {
 
-    private final RequestFactory requestFactory;
-    private final ResponseProvider responseProvider;
-    private final VisionAnnotationExtractor visionAnnotationExtractor;
+    private final VisionClient visionClient;
+    private final VisionMapper visionMapper;
 
-    public VisionService(RequestFactory requestFactory,
-                         ResponseProvider responseProvider,
-                         VisionAnnotationExtractor visionAnnotationExtractor) {
-        this.requestFactory = requestFactory;
-        this.responseProvider = responseProvider;
-        this.visionAnnotationExtractor = visionAnnotationExtractor;
+    public VisionService(VisionClient visionClient, VisionMapper visionMapper) {
+        this.visionClient = visionClient;
+        this.visionMapper = visionMapper;
     }
 
-    public List<VisionAnnotation> processImage(String filePath) throws Exception {
-        List<AnnotateImageRequest> requests = requestFactory.create(filePath);
-        List<AnnotateImageResponse> responses = responseProvider.detectLabels(requests);
-        return visionAnnotationExtractor.extract(responses);
+    public List<PetwiseLabel> detectLabels(String filePath) throws PetwiseImageProcessingException {
+        AnnotateImageResponse response = visionClient.detectLabels(filePath);
+        return visionMapper.mapToLabels(response);
+    }
+
+    public List<PetwiseLocalizedObject> localizeObjects(String filePath) throws PetwiseImageProcessingException {
+        AnnotateImageResponse response = visionClient.localizeObjects(filePath);
+        return visionMapper.mapToLocalizedObjects(response);
+    }
+
+    public List<PetwiseCropHint> getCropHints(String filePath) throws PetwiseImageProcessingException {
+        AnnotateImageResponse response = visionClient.getCropHints(filePath);
+        return visionMapper.mapToCropHints(response);
     }
 }

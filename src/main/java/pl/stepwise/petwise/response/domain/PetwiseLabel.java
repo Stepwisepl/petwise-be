@@ -1,4 +1,4 @@
-package pl.stepwise.petwise.response;
+package pl.stepwise.petwise.response.domain;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 @Builder
 @Getter
-public class VisionAnnotation {
+public class PetwiseLabel {
 
     private String mid;
     private String description;

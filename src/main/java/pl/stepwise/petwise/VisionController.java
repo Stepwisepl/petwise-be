@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.stepwise.petwise.response.VisionAnnotation;
+import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
+import pl.stepwise.petwise.response.domain.PetwiseCropHint;
+import pl.stepwise.petwise.response.domain.PetwiseLabel;
+import pl.stepwise.petwise.response.domain.PetwiseLocalizedObject;
 
 import java.util.List;
 
@@ -20,8 +23,18 @@ public class VisionController {
         this.visionService = visionService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<VisionAnnotation>> test(@RequestParam("filepath") String filePath) throws Exception {
-        return ResponseEntity.ok(visionService.processImage(filePath));
+    @GetMapping("labels")
+    public ResponseEntity<List<PetwiseLabel>> detectImageLabels(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException {
+        return ResponseEntity.ok(visionService.detectLabels(filePath));
+    }
+
+    @GetMapping("objects")
+    public ResponseEntity<List<PetwiseLocalizedObject>> detectObjectLocalization(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException {
+        return ResponseEntity.ok(visionService.localizeObjects(filePath));
+    }
+
+    @GetMapping("crop")
+    public ResponseEntity<List<PetwiseCropHint>> getCropHints(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException {
+        return ResponseEntity.ok(visionService.getCropHints(filePath));
     }
 }
