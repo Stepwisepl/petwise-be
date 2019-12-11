@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.stepwise.petwise.response.domain.PetwiseLabel;
-import pl.stepwise.petwise.response.domain.PetwiseLocalizedObject;
+import pl.stepwise.petwise.response.domain.localizedobject.PetwiseLocalizedObject;
 import pl.stepwise.petwise.response.domain.PetwiseCropHint;
 
 import java.util.Collections;
@@ -28,6 +28,12 @@ class VisionMapperTest {
 
     @Mock
     LocalizedObjectAnnotation localizedObjectAnnotationMock;
+
+    @Mock
+    BoundingPoly boundingPolyMock;
+
+    @Mock
+    NormalizedVertex normalizedVertexMock;
 
     @Mock
     CropHintsAnnotation cropHintsAnnotationMock;
@@ -76,15 +82,30 @@ class VisionMapperTest {
         //given
         given(annotateImageResponseMock.getLocalizedObjectAnnotationsList())
                 .willReturn(Collections.singletonList(localizedObjectAnnotationMock));
-        given(localizedObjectAnnotationMock.getName())
-                .willReturn("name");
+        mockLocalizedObject();
         //when
         List<PetwiseLocalizedObject> objects = visionMapper.mapToLocalizedObjects(annotateImageResponseMock);
         //then
         assertAll("localized objects",
                 () -> assertEquals(1, objects.size()),
-                () -> assertEquals("name", objects.get(0).getObjectName())
+                () -> assertEquals("name", objects.get(0).getObjectName()),
+                () -> assertEquals(1.1F, objects.get(0).getBoundingPoly().getNormalizedVertices().get(0).getX()),
+                () -> assertEquals(2.2F, objects.get(0).getBoundingPoly().getNormalizedVertices().get(0).getY()),
+                () -> assertEquals(1, objects.get(0).getBoundingPoly().getNormalizedVertices().size())
         );
+    }
+
+    private void mockLocalizedObject() {
+        given(localizedObjectAnnotationMock.getName())
+                .willReturn("name");
+        given(localizedObjectAnnotationMock.getBoundingPoly())
+                .willReturn(boundingPolyMock);
+        given(boundingPolyMock.getNormalizedVerticesList())
+                .willReturn(Collections.singletonList(normalizedVertexMock));
+        given(normalizedVertexMock.getX())
+                .willReturn(1.1F);
+        given(normalizedVertexMock.getY())
+                .willReturn(2.2F);
     }
 
     @Test

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
 import pl.stepwise.petwise.response.domain.PetwiseCropHint;
 import pl.stepwise.petwise.response.domain.PetwiseLabel;
-import pl.stepwise.petwise.response.domain.PetwiseLocalizedObject;
+import pl.stepwise.petwise.response.domain.localizedobject.PetwiseLocalizedObject;
 
 import java.util.List;
 

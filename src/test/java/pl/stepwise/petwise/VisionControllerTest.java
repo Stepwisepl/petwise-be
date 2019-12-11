@@ -1,6 +1,7 @@
 package pl.stepwise.petwise;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,6 +27,7 @@ class VisionControllerTest {
     private MockMvc mvc;
 
     @Test
+    @Timeout(3)
     void shouldGetLabelsForClearImage() throws Exception {
         String route = "/api/test/labels";
         mvc.perform(get(route + "?filepath=test-pictures/dog1.jpg"))
@@ -39,6 +41,7 @@ class VisionControllerTest {
     }
 
     @Test
+    @Timeout(3)
     void shouldRecognizeDogBreedInProperlyCroppedImage() throws Exception {
         String route = "/api/test/labels";
         mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
@@ -56,6 +59,7 @@ class VisionControllerTest {
     }
 
     @Test
+    @Timeout(3)
     void shouldGetObjectsForGivenImage() throws Exception {
         String route = "/api/test/objects";
         mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
@@ -66,6 +70,7 @@ class VisionControllerTest {
     }
 
     @Test
+    @Timeout(3)
     void shouldGetCropHintsForGivenImage() throws Exception {
         String route = "/api/test/crop";
         mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))

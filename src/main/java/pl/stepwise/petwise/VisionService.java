@@ -6,7 +6,7 @@ import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
 import pl.stepwise.petwise.response.VisionClient;
 import pl.stepwise.petwise.response.VisionMapper;
 import pl.stepwise.petwise.response.domain.PetwiseLabel;
-import pl.stepwise.petwise.response.domain.PetwiseLocalizedObject;
+import pl.stepwise.petwise.response.domain.localizedobject.PetwiseLocalizedObject;
 import pl.stepwise.petwise.response.domain.PetwiseCropHint;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package pl.stepwise.petwise.response.domain;
+package pl.stepwise.petwise.response.domain.localizedobject;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -12,4 +12,5 @@ import lombok.ToString;
 public class PetwiseLocalizedObject {
 
     private String objectName;
+    private PetwiseBoundingPoly boundingPoly;
 }

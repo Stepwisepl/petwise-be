@@ -54,7 +54,7 @@ Optional: If you are working on IntelliJ IDEA, you may add [Maven wrapper suppor
 
 ### Google API key
 
-To run this project locally, ask for a **json file with the API key** and add its path the following **environmental variable** in project configuration:
+To run this project locally, ask for a **json file with the API key** and add its path as the following **environmental variable** in the project configuration:
 ```
 GOOGLE_APPLICATION_CREDENTIALS="your-path-to-the-file.json"
 ```

@@ -11,7 +11,7 @@ import pl.stepwise.petwise.response.VisionClient;
 import pl.stepwise.petwise.response.VisionMapper;
 import pl.stepwise.petwise.response.domain.PetwiseCropHint;
 import pl.stepwise.petwise.response.domain.PetwiseLabel;
-import pl.stepwise.petwise.response.domain.PetwiseLocalizedObject;
+import pl.stepwise.petwise.response.domain.localizedobject.PetwiseLocalizedObject;
 
 import java.util.Collections;
 import java.util.List;
