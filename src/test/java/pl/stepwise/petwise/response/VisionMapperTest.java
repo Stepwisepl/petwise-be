@@ -41,11 +41,14 @@ class VisionMapperTest {
     @Mock
     CropHint cropHintMock;
 
+    @Mock
+    private LocalizedObjectClassifier classifier;
+
     private VisionMapper visionMapper;
 
     @BeforeEach
     void setUp() {
-        visionMapper = new VisionMapper();
+        visionMapper = new VisionMapper(classifier);
     }
 
     @Test

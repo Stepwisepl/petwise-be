@@ -126,3 +126,9 @@ Remove the `postgres` directory from the `data` directory placed in the project 
 * Stabilize docker environment
 * File upload
 * If image can be cropped (to limit labeling only to a pet), crop it and resend the request for labels
+
+## Possible limitations
+Google Vision API seems not to provide similarity recognition. Objects on images can be labelled but there is no way of finding similarity between them in the API response.
+To consider:
+* [Amazon Rekognition Image](https://aws.amazon.com/rekognition/image-features/?nc=sn&loc=3&dn=2)
+* [Comparison of Image Recognition APIs on food images](https://bytes.grubhub.com/https-medium-com-rohan-kulkarni-comparison-of-image-recognition-apis-on-food-images-cddc9105fc33)

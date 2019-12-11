@@ -41,6 +41,16 @@ class VisionControllerTest {
     }
 
     @Test
+//    @Timeout(3)
+    void shouldGetLabelsForAutomaticallyCroppedImage() throws Exception {
+        String route = "/api/test/crop-labels";
+        mvc.perform(get(route + "?filepath=test-pictures/dog3.jpg"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Beagle")))
+                .andDo(print());
+    }
+
+    @Test
     @Timeout(3)
     void shouldRecognizeDogBreedInProperlyCroppedImage() throws Exception {
         String route = "/api/test/labels";

@@ -11,6 +11,7 @@ import pl.stepwise.petwise.response.domain.PetwiseCropHint;
 import pl.stepwise.petwise.response.domain.PetwiseLabel;
 import pl.stepwise.petwise.response.domain.localizedobject.PetwiseLocalizedObject;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -24,8 +25,13 @@ public class VisionController {
     }
 
     @GetMapping("labels")
-    public ResponseEntity<List<PetwiseLabel>> detectImageLabels(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException {
+    public ResponseEntity<List<PetwiseLabel>> detectImageLabels(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException, IOException {
         return ResponseEntity.ok(visionService.detectLabels(filePath));
+    }
+
+    @GetMapping("crop-labels")
+    public ResponseEntity<List<PetwiseLabel>> detectImageLabelsAfterCrop(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException, IOException {
+        return ResponseEntity.ok(visionService.detectLabelsForCroppedObject(filePath));
     }
 
     @GetMapping("objects")

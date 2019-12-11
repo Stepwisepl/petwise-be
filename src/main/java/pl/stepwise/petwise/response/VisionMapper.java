@@ -16,6 +16,12 @@ import java.util.stream.Collectors;
 @Service
 public class VisionMapper {
 
+    private final LocalizedObjectClassifier classifier;
+
+    public VisionMapper(LocalizedObjectClassifier classifier) {
+        this.classifier = classifier;
+    }
+
     public List<PetwiseLabel> mapToLabels(AnnotateImageResponse response) {
         return response.getLabelAnnotationsList().stream()
                 .map(a -> PetwiseLabel.builder()
@@ -32,6 +38,7 @@ public class VisionMapper {
                 .map(a -> PetwiseLocalizedObject.builder()
                         .objectName(a.getName())
                         .boundingPoly(mapToBoundingPoly(a.getBoundingPoly()))
+                        .category(classifier.assignCategory(a.getName()))
                         .build())
                 .collect(Collectors.toList());
     }

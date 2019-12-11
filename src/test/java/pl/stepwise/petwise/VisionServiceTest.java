@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.core.io.ResourceLoader;
 import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
+import pl.stepwise.petwise.response.ImageCropper;
 import pl.stepwise.petwise.response.VisionClient;
 import pl.stepwise.petwise.response.VisionMapper;
 import pl.stepwise.petwise.response.domain.PetwiseCropHint;
@@ -32,11 +34,17 @@ class VisionServiceTest {
     private VisionMapper mapperMock;
 
     @Mock
+    ImageCropper imageCropperMock;
+
+    @Mock
+    ResourceLoader resourceLoaderMock;
+
+    @Mock
     private AnnotateImageResponse responseMock;
 
     @BeforeEach
     void setUp() {
-        service = new VisionService(clientMock, mapperMock);
+        service = new VisionService(clientMock, mapperMock, imageCropperMock, resourceLoaderMock);
     }
 
     @Test
