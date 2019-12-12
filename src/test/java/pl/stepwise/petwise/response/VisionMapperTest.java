@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.stepwise.petwise.response.domain.Category;
 import pl.stepwise.petwise.response.domain.PetwiseLabel;
 import pl.stepwise.petwise.response.domain.localizedobject.PetwiseLocalizedObject;
 import pl.stepwise.petwise.response.domain.PetwiseCropHint;
@@ -86,12 +87,15 @@ class VisionMapperTest {
         given(annotateImageResponseMock.getLocalizedObjectAnnotationsList())
                 .willReturn(Collections.singletonList(localizedObjectAnnotationMock));
         mockLocalizedObject();
+        given(classifier.assignCategory("Dog"))
+                .willReturn(Category.ANIMALS);
         //when
         List<PetwiseLocalizedObject> objects = visionMapper.mapToLocalizedObjects(annotateImageResponseMock);
         //then
         assertAll("localized objects",
                 () -> assertEquals(1, objects.size()),
-                () -> assertEquals("name", objects.get(0).getObjectName()),
+                () -> assertEquals("Dog", objects.get(0).getObjectName()),
+                () -> assertEquals(Category.ANIMALS, objects.get(0).getCategory()),
                 () -> assertEquals(1.1F, objects.get(0).getBoundingPoly().getNormalizedVertices().get(0).getX()),
                 () -> assertEquals(2.2F, objects.get(0).getBoundingPoly().getNormalizedVertices().get(0).getY()),
                 () -> assertEquals(1, objects.get(0).getBoundingPoly().getNormalizedVertices().size())
@@ -100,7 +104,7 @@ class VisionMapperTest {
 
     private void mockLocalizedObject() {
         given(localizedObjectAnnotationMock.getName())
-                .willReturn("name");
+                .willReturn("Dog");
         given(localizedObjectAnnotationMock.getBoundingPoly())
                 .willReturn(boundingPolyMock);
         given(boundingPolyMock.getNormalizedVerticesList())

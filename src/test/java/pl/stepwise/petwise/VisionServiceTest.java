@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.ResourceLoader;
 import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
-import pl.stepwise.petwise.response.ImageCropper;
+import pl.stepwise.petwise.image.crop.ImageCropper;
 import pl.stepwise.petwise.response.VisionClient;
 import pl.stepwise.petwise.response.VisionMapper;
 import pl.stepwise.petwise.response.domain.PetwiseCropHint;

@@ -1,15 +1,16 @@
 package pl.stepwise.petwise;
 
 import com.google.cloud.vision.v1.AnnotateImageResponse;
-import org.springframework.core.io.*;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
-import pl.stepwise.petwise.response.ImageCropper;
+import pl.stepwise.petwise.image.crop.ImageCropper;
 import pl.stepwise.petwise.response.VisionClient;
 import pl.stepwise.petwise.response.VisionMapper;
+import pl.stepwise.petwise.response.domain.PetwiseCropHint;
 import pl.stepwise.petwise.response.domain.PetwiseLabel;
 import pl.stepwise.petwise.response.domain.localizedobject.PetwiseLocalizedObject;
-import pl.stepwise.petwise.response.domain.PetwiseCropHint;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
+@Log4j2
 public class VisionService {
 
     private final VisionClient visionClient;
@@ -50,22 +52,24 @@ public class VisionService {
         return visionMapper.mapToCropHints(response);
     }
 
-    public List<PetwiseLabel> detectLabelsForCroppedObject(String filePath) throws PetwiseImageProcessingException, IOException {
+    public List<PetwiseLabel> detectLabelsAfterCroppingObject(String filePath) throws PetwiseImageProcessingException, IOException {
+        long start = System.nanoTime();
         File file = resourceLoader.getResource("classpath:" + filePath).getFile().getAbsoluteFile();
         BufferedImage bufferedImage = ImageIO.read(file);
-        BufferedImage img = imageCropper.crop(getEligibleObjects(filePath), bufferedImage);
+        BufferedImage img = imageCropper.crop(getEligibleObject(filePath).getBoundingPoly(), bufferedImage);
 
         AnnotateImageResponse responseWithLabels = visionClient.detectLabels(img);
+        long end = System.nanoTime();
+        long elapsed = end - start;
+        log.debug("Elaplsed: " + elapsed/1000000);
         return visionMapper.mapToLabels(responseWithLabels);
     }
 
-    private PetwiseLocalizedObject getEligibleObjects(String filePath) throws PetwiseImageProcessingException {
+    public PetwiseLocalizedObject getEligibleObject(String filePath) throws PetwiseImageProcessingException {
         AnnotateImageResponse response = visionClient.localizeObjects(filePath);
         List<PetwiseLocalizedObject> objects = visionMapper.mapToLocalizedObjects(response);
-//        List<PetwiseLocalizedObject> eligibleObjects = objects.stream()
         return objects.stream()
                 .filter(PetwiseLocalizedObject::hasEligibleCategory)
-//                .collect(Collectors.toList());
-        .findFirst().orElse(null);
+                .findFirst().orElse(null);
     }
 }

@@ -27,7 +27,7 @@ class VisionControllerTest {
     private MockMvc mvc;
 
     @Test
-    @Timeout(3)
+    @Timeout(4)
     void shouldGetLabelsForClearImage() throws Exception {
         String route = "/api/test/labels";
         mvc.perform(get(route + "?filepath=test-pictures/dog1.jpg"))
@@ -41,9 +41,9 @@ class VisionControllerTest {
     }
 
     @Test
-//    @Timeout(3)
+    @Timeout(5)
     void shouldGetLabelsForAutomaticallyCroppedImage() throws Exception {
-        String route = "/api/test/crop-labels";
+        String route = "/api/test/labels-after-crop";
         mvc.perform(get(route + "?filepath=test-pictures/dog3.jpg"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Beagle")))
@@ -76,6 +76,17 @@ class VisionControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Dog")))
                 .andExpect(content().string(containsString("Pillow")))
+                .andDo(print());
+    }
+
+    @Test
+    @Timeout(3)
+    void shouldGetEligibleObjectForGivenImage() throws Exception {
+        String route = "/api/test/eligible-objects";
+        mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Dog")))
+                .andExpect(content().string(containsString("ANIMALS")))
                 .andDo(print());
     }
 

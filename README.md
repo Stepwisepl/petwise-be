@@ -87,6 +87,12 @@ You can also start the application and manually test the API in Postman - using 
 * `http://localhost:8080/api/test/objects?filepath=test-pictures/dog2-cropped.jpg`
 * `http://localhost:8080/api/test/objects?filepath=test-pictures/dog2-cropped-properly.png`
 * `http://localhost:8080/api/test/objects?filepath=test-pictures/dog3.jpg`
+#### Eligible localized objects
+* `http://localhost:8080/api/test/eligible-objects?filepath=test-pictures/dog1.jpg`
+* `http://localhost:8080/api/test/eligible-objects?filepath=test-pictures/dog2.jpg`
+* `http://localhost:8080/api/test/eligible-objects?filepath=test-pictures/dog2-cropped.jpg`
+* `http://localhost:8080/api/test/eligible-objects?filepath=test-pictures/dog2-cropped-properly.png`
+* `http://localhost:8080/api/test/eligible-objects?filepath=test-pictures/dog3.jpg`
 #### Crop hints
 * `http://localhost:8080/api/test/crop?filepath=test-pictures/dog1.jpg`
 * `http://localhost:8080/api/test/crop?filepath=test-pictures/dog2.jpg`
@@ -132,3 +138,6 @@ Google Vision API seems not to provide similarity recognition. Objects on images
 To consider:
 * [Amazon Rekognition Image](https://aws.amazon.com/rekognition/image-features/?nc=sn&loc=3&dn=2)
 * [Comparison of Image Recognition APIs on food images](https://bytes.grubhub.com/https-medium-com-rohan-kulkarni-comparison-of-image-recognition-apis-on-food-images-cddc9105fc33)
+
+Other applications for determining pew breed:
+* [Dog Scanner](https://play.google.com/store/apps/details?id=com.siwalusoftware.dogscanner&hl=pl)

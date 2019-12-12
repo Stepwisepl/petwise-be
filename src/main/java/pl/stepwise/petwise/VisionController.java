@@ -29,14 +29,19 @@ public class VisionController {
         return ResponseEntity.ok(visionService.detectLabels(filePath));
     }
 
-    @GetMapping("crop-labels")
+    @GetMapping("labels-after-crop")
     public ResponseEntity<List<PetwiseLabel>> detectImageLabelsAfterCrop(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException, IOException {
-        return ResponseEntity.ok(visionService.detectLabelsForCroppedObject(filePath));
+        return ResponseEntity.ok(visionService.detectLabelsAfterCroppingObject(filePath));
     }
 
     @GetMapping("objects")
     public ResponseEntity<List<PetwiseLocalizedObject>> detectObjectLocalization(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException {
         return ResponseEntity.ok(visionService.localizeObjects(filePath));
+    }
+
+    @GetMapping("eligible-objects")
+    public ResponseEntity<PetwiseLocalizedObject> detectEligibleObjectLocalization(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException {
+        return ResponseEntity.ok(visionService.getEligibleObject(filePath));
     }
 
     @GetMapping("crop")
