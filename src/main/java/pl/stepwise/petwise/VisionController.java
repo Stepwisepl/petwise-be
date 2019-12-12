@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.stepwise.petwise.exception.InvalidLocalizedObjectAmountException;
 import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
 import pl.stepwise.petwise.response.domain.PetwiseCropHint;
 import pl.stepwise.petwise.response.domain.PetwiseLabel;
@@ -30,7 +31,7 @@ public class VisionController {
     }
 
     @GetMapping("labels-after-crop")
-    public ResponseEntity<List<PetwiseLabel>> detectImageLabelsAfterCrop(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException, IOException {
+    public ResponseEntity<List<PetwiseLabel>> detectImageLabelsAfterCrop(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException, IOException, InvalidLocalizedObjectAmountException {
         return ResponseEntity.ok(visionService.detectLabelsAfterCroppingObject(filePath));
     }
 
@@ -41,7 +42,7 @@ public class VisionController {
 
     @GetMapping("eligible-objects")
     public ResponseEntity<PetwiseLocalizedObject> detectEligibleObjectLocalization(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException {
-        return ResponseEntity.ok(visionService.getEligibleObject(filePath));
+        return ResponseEntity.ok(visionService.getCategorizedObjects(filePath));
     }
 
     @GetMapping("crop")

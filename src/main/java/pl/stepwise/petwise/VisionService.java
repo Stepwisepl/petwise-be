@@ -4,6 +4,7 @@ import com.google.cloud.vision.v1.AnnotateImageResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import pl.stepwise.petwise.exception.InvalidLocalizedObjectAmountException;
 import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
 import pl.stepwise.petwise.image.crop.ImageCropper;
 import pl.stepwise.petwise.response.VisionClient;
@@ -52,11 +53,18 @@ public class VisionService {
         return visionMapper.mapToCropHints(response);
     }
 
-    public List<PetwiseLabel> detectLabelsAfterCroppingObject(String filePath) throws PetwiseImageProcessingException, IOException {
+    public List<PetwiseLabel> detectLabelsAfterCroppingObject(String filePath) throws PetwiseImageProcessingException, IOException, InvalidLocalizedObjectAmountException {
         long start = System.nanoTime();
         File file = resourceLoader.getResource("classpath:" + filePath).getFile().getAbsoluteFile();
         BufferedImage bufferedImage = ImageIO.read(file);
-        BufferedImage img = imageCropper.crop(getEligibleObject(filePath).getBoundingPoly(), bufferedImage);
+        PetwiseLocalizedObject eligibleObject = getCategorizedObjects(filePath);
+        /**
+         * @todo handle multiple eligible objects found, handle no eligible objects found
+         */
+        if(eligibleObject == null) {
+            throw new InvalidLocalizedObjectAmountException("There should be exactly one object eligible for processing.");
+        }
+        BufferedImage img = imageCropper.crop(eligibleObject.getBoundingPoly(), bufferedImage);
 
         AnnotateImageResponse responseWithLabels = visionClient.detectLabels(img);
         long end = System.nanoTime();
@@ -65,7 +73,7 @@ public class VisionService {
         return visionMapper.mapToLabels(responseWithLabels);
     }
 
-    public PetwiseLocalizedObject getEligibleObject(String filePath) throws PetwiseImageProcessingException {
+    public PetwiseLocalizedObject getCategorizedObjects(String filePath) throws PetwiseImageProcessingException {
         AnnotateImageResponse response = visionClient.localizeObjects(filePath);
         List<PetwiseLocalizedObject> objects = visionMapper.mapToLocalizedObjects(response);
         return objects.stream()
