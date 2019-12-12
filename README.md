@@ -16,9 +16,20 @@ The project provides a REST API for the [Petwise Application](https://gitlab.com
 
 ![test-in-postman-objects-request-image](readme-images/postman-objects.png)
 
+* Identifying one eligible object on an image (name, category and normalized vertices):
+
+![test-in-postman-eligible-object-request-image](readme-images/postman-eligible-object.png)
+
 * Calling for crop hints (only confidence levels - experimental)
 
 ![test-in-postman-crop-hints-request-image](readme-images/postman-crop.png)
+
+* Uploading a file to the `petwise-resources` bucket
+
+![test-in-postman-upload-file-image](readme-images/postman-upload-file.png)
+
+![bucket-image](readme-images/google-storage-bucket.png)
+
 
 ## Getting Started
 
@@ -99,6 +110,14 @@ You can also start the application and manually test the API in Postman - using 
 * `http://localhost:8080/api/test/crop?filepath=test-pictures/dog2-cropped.jpg`
 * `http://localhost:8080/api/test/crop?filepath=test-pictures/dog2-cropped-properly.png`
 * `http://localhost:8080/api/test/crop?filepath=test-pictures/dog3.jpg`
+### File upload
+* `http://localhost:8080/api/test/upload-file`
+
+Body: `form data`
+
+Key: `file`
+
+Value: `your-image.png`
 
 ## API documentation
 
