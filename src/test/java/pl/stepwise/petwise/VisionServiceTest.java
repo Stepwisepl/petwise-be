@@ -7,13 +7,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.ResourceLoader;
-import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
-import pl.stepwise.petwise.image.crop.ImageCropper;
-import pl.stepwise.petwise.response.VisionClient;
-import pl.stepwise.petwise.response.VisionMapper;
-import pl.stepwise.petwise.response.domain.PetwiseCropHint;
-import pl.stepwise.petwise.response.domain.PetwiseLabel;
-import pl.stepwise.petwise.response.domain.localizedobject.PetwiseLocalizedObject;
+import pl.stepwise.petwise.vision.exception.PetwiseImageProcessingException;
+import pl.stepwise.petwise.imagecrop.service.ImageCropper;
+import pl.stepwise.petwise.vision.service.VisionClient;
+import pl.stepwise.petwise.vision.service.VisionService;
+import pl.stepwise.petwise.vision.service.VisionToPetwiseMapper;
+import pl.stepwise.petwise.vision.model.PetwiseCropHint;
+import pl.stepwise.petwise.vision.model.PetwiseLabel;
+import pl.stepwise.petwise.vision.model.localizedobject.PetwiseLocalizedObject;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +32,7 @@ class VisionServiceTest {
     private VisionClient clientMock;
 
     @Mock
-    private VisionMapper mapperMock;
+    private VisionToPetwiseMapper mapperMock;
 
     @Mock
     ImageCropper imageCropperMock;

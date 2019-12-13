@@ -1,4 +1,4 @@
-package pl.stepwise.petwise.exception;
+package pl.stepwise.petwise.vision.exception;
 
 public class InvalidLocalizedObjectAmountException extends Exception {
 

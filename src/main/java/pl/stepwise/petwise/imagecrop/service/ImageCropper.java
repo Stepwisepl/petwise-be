@@ -1,7 +1,7 @@
-package pl.stepwise.petwise.image.crop;
+package pl.stepwise.petwise.imagecrop.service;
 
 import org.springframework.stereotype.Service;
-import pl.stepwise.petwise.response.domain.localizedobject.PetwiseBoundingPoly;
+import pl.stepwise.petwise.vision.model.localizedobject.PetwiseBoundingPoly;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

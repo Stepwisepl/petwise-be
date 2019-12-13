@@ -1,7 +1,7 @@
-package pl.stepwise.petwise.response;
+package pl.stepwise.petwise.vision.service;
 
 import org.springframework.stereotype.Service;
-import pl.stepwise.petwise.response.domain.Category;
+import pl.stepwise.petwise.vision.model.Category;
 
 @Service
 public class LocalizedObjectClassifier {

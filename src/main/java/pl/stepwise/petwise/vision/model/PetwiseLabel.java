@@ -1,4 +1,4 @@
-package pl.stepwise.petwise.response.domain;
+package pl.stepwise.petwise.vision.model;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

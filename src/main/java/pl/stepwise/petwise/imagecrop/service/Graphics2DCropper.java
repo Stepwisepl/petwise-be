@@ -1,4 +1,4 @@
-package pl.stepwise.petwise.image.crop;
+package pl.stepwise.petwise.imagecrop.service;
 
 import org.springframework.stereotype.Service;
 

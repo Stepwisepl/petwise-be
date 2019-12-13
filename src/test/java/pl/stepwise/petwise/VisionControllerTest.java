@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import pl.stepwise.petwise.vision.controller.VisionController;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,10 +27,12 @@ class VisionControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    private static String API_PATH = "/api/vision/";
+
     @Test
     @Timeout(4)
     void shouldGetLabelsForClearImage() throws Exception {
-        String route = "/api/test/labels";
+        String route = API_PATH + "labels";
         mvc.perform(get(route + "?filepath=test-pictures/dog1.jpg"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Beagle")))
@@ -43,7 +46,7 @@ class VisionControllerTest {
     @Test
     @Timeout(5)
     void shouldGetLabelsForAutomaticallyCroppedImage() throws Exception {
-        String route = "/api/test/labels-after-crop";
+        String route = API_PATH + "labels-after-crop";
         mvc.perform(get(route + "?filepath=test-pictures/dog3.jpg"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Beagle")))
@@ -53,7 +56,7 @@ class VisionControllerTest {
     @Test
     @Timeout(3)
     void shouldRecognizeDogBreedInProperlyCroppedImage() throws Exception {
-        String route = "/api/test/labels";
+        String route = API_PATH + "labels";
         mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Chair")))
@@ -71,7 +74,7 @@ class VisionControllerTest {
     @Test
     @Timeout(3)
     void shouldGetObjectsForGivenImage() throws Exception {
-        String route = "/api/test/objects";
+        String route = API_PATH + "objects";
         mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Dog")))
@@ -82,7 +85,7 @@ class VisionControllerTest {
     @Test
     @Timeout(3)
     void shouldGetEligibleObjectForGivenImage() throws Exception {
-        String route = "/api/test/eligible-objects";
+        String route = API_PATH + "eligible-object";
         mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Dog")))
@@ -93,7 +96,7 @@ class VisionControllerTest {
     @Test
     @Timeout(3)
     void shouldGetCropHintsForGivenImage() throws Exception {
-        String route = "/api/test/crop";
+        String route = API_PATH + "crop";
         mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
                 .andExpect(status().isOk());
     }

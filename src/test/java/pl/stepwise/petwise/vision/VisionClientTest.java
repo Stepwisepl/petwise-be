@@ -1,8 +1,7 @@
-package pl.stepwise.petwise.response;
+package pl.stepwise.petwise.vision;
 
 import com.google.cloud.vision.v1.AnnotateImageResponse;
 import com.google.cloud.vision.v1.Feature;
-import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,8 @@ import org.springframework.cloud.gcp.vision.CloudVisionException;
 import org.springframework.cloud.gcp.vision.CloudVisionTemplate;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
+import pl.stepwise.petwise.vision.exception.PetwiseImageProcessingException;
+import pl.stepwise.petwise.vision.service.VisionClient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;

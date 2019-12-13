@@ -87,31 +87,31 @@ You can also start the application and manually test the API in Postman - using 
 
 ### List of urls that will work
 #### Labels
-* `http://localhost:8080/api/test/labels?filepath=test-pictures/dog1.jpg`
-* `http://localhost:8080/api/test/labels?filepath=test-pictures/dog2.jpg`
-* `http://localhost:8080/api/test/labels?filepath=test-pictures/dog2-cropped.jpg`
-* `http://localhost:8080/api/test/labels?filepath=test-pictures/dog2-cropped-properly.png`
-* `http://localhost:8080/api/test/labels?filepath=test-pictures/dog3.jpg`
+* `http://localhost:8080/api/vision/labels?filepath=test-pictures/dog1.jpg`
+* `http://localhost:8080/api/vision/labels?filepath=test-pictures/dog2.jpg`
+* `http://localhost:8080/api/vision/labels?filepath=test-pictures/dog2-cropped.jpg`
+* `http://localhost:8080/api/vision/labels?filepath=test-pictures/dog2-cropped-properly.png`
+* `http://localhost:8080/api/vision/labels?filepath=test-pictures/dog3.jpg`
 #### Localized objects
-* `http://localhost:8080/api/test/objects?filepath=test-pictures/dog1.jpg`
-* `http://localhost:8080/api/test/objects?filepath=test-pictures/dog2.jpg`
-* `http://localhost:8080/api/test/objects?filepath=test-pictures/dog2-cropped.jpg`
-* `http://localhost:8080/api/test/objects?filepath=test-pictures/dog2-cropped-properly.png`
-* `http://localhost:8080/api/test/objects?filepath=test-pictures/dog3.jpg`
+* `http://localhost:8080/api/vision/objects?filepath=test-pictures/dog1.jpg`
+* `http://localhost:8080/api/vision/objects?filepath=test-pictures/dog2.jpg`
+* `http://localhost:8080/api/vision/objects?filepath=test-pictures/dog2-cropped.jpg`
+* `http://localhost:8080/api/vision/objects?filepath=test-pictures/dog2-cropped-properly.png`
+* `http://localhost:8080/api/vision/objects?filepath=test-pictures/dog3.jpg`
 #### Eligible localized objects
-* `http://localhost:8080/api/test/eligible-objects?filepath=test-pictures/dog1.jpg`
-* `http://localhost:8080/api/test/eligible-objects?filepath=test-pictures/dog2.jpg`
-* `http://localhost:8080/api/test/eligible-objects?filepath=test-pictures/dog2-cropped.jpg`
-* `http://localhost:8080/api/test/eligible-objects?filepath=test-pictures/dog2-cropped-properly.png`
-* `http://localhost:8080/api/test/eligible-objects?filepath=test-pictures/dog3.jpg`
+* `http://localhost:8080/api/vision/eligible-object?filepath=test-pictures/dog1.jpg`
+* `http://localhost:8080/api/vision/eligible-object?filepath=test-pictures/dog2.jpg`
+* `http://localhost:8080/api/vision/eligible-object?filepath=test-pictures/dog2-cropped.jpg`
+* `http://localhost:8080/api/vision/eligible-object?filepath=test-pictures/dog2-cropped-properly.png`
+* `http://localhost:8080/api/vision/eligible-object?filepath=test-pictures/dog3.jpg`
 #### Crop hints
-* `http://localhost:8080/api/test/crop?filepath=test-pictures/dog1.jpg`
-* `http://localhost:8080/api/test/crop?filepath=test-pictures/dog2.jpg`
-* `http://localhost:8080/api/test/crop?filepath=test-pictures/dog2-cropped.jpg`
-* `http://localhost:8080/api/test/crop?filepath=test-pictures/dog2-cropped-properly.png`
-* `http://localhost:8080/api/test/crop?filepath=test-pictures/dog3.jpg`
+* `http://localhost:8080/api/vision/crop?filepath=test-pictures/dog1.jpg`
+* `http://localhost:8080/api/vision/crop?filepath=test-pictures/dog2.jpg`
+* `http://localhost:8080/api/vision/crop?filepath=test-pictures/dog2-cropped.jpg`
+* `http://localhost:8080/api/vision/crop?filepath=test-pictures/dog2-cropped-properly.png`
+* `http://localhost:8080/api/vision/crop?filepath=test-pictures/dog3.jpg`
 ### File upload
-* `http://localhost:8080/api/test/upload-file`
+* `http://localhost:8080/api/file/upload`
 
 Body: `form data`
 

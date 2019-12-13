@@ -1,14 +1,14 @@
-package pl.stepwise.petwise.response;
+package pl.stepwise.petwise.vision;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.stepwise.petwise.image.crop.Graphics2DCropper;
-import pl.stepwise.petwise.image.crop.ImageCropper;
-import pl.stepwise.petwise.response.domain.localizedobject.PetwiseBoundingPoly;
-import pl.stepwise.petwise.response.domain.localizedobject.PetwiseNormalizedVertex;
+import pl.stepwise.petwise.imagecrop.service.Graphics2DCropper;
+import pl.stepwise.petwise.imagecrop.service.ImageCropper;
+import pl.stepwise.petwise.vision.model.localizedobject.PetwiseBoundingPoly;
+import pl.stepwise.petwise.vision.model.localizedobject.PetwiseNormalizedVertex;
 
 import java.awt.*;
 import java.awt.geom.Point2D;

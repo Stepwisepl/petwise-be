@@ -1,24 +1,24 @@
-package pl.stepwise.petwise.response;
+package pl.stepwise.petwise.vision.service;
 
 import com.google.cloud.vision.v1.AnnotateImageResponse;
 import com.google.cloud.vision.v1.BoundingPoly;
 import com.google.cloud.vision.v1.NormalizedVertex;
 import org.springframework.stereotype.Service;
-import pl.stepwise.petwise.response.domain.PetwiseCropHint;
-import pl.stepwise.petwise.response.domain.PetwiseLabel;
-import pl.stepwise.petwise.response.domain.localizedobject.PetwiseBoundingPoly;
-import pl.stepwise.petwise.response.domain.localizedobject.PetwiseLocalizedObject;
-import pl.stepwise.petwise.response.domain.localizedobject.PetwiseNormalizedVertex;
+import pl.stepwise.petwise.vision.model.PetwiseCropHint;
+import pl.stepwise.petwise.vision.model.PetwiseLabel;
+import pl.stepwise.petwise.vision.model.localizedobject.PetwiseBoundingPoly;
+import pl.stepwise.petwise.vision.model.localizedobject.PetwiseLocalizedObject;
+import pl.stepwise.petwise.vision.model.localizedobject.PetwiseNormalizedVertex;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class VisionMapper {
+public class VisionToPetwiseMapper {
 
     private final LocalizedObjectClassifier classifier;
 
-    public VisionMapper(LocalizedObjectClassifier classifier) {
+    public VisionToPetwiseMapper(LocalizedObjectClassifier classifier) {
         this.classifier = classifier;
     }
 
@@ -52,9 +52,9 @@ public class VisionMapper {
     private List<PetwiseNormalizedVertex> mapToNormalizedVertices(List<NormalizedVertex> visionVertices) {
         return visionVertices.stream()
                 .map(v -> PetwiseNormalizedVertex.builder()
-                .x(v.getX())
-                .y(v.getY())
-                .build())
+                        .x(v.getX())
+                        .y(v.getY())
+                        .build())
                 .collect(Collectors.toList());
 
     }
@@ -62,8 +62,8 @@ public class VisionMapper {
     public List<PetwiseCropHint> mapToCropHints(AnnotateImageResponse response) {
         return response.getCropHintsAnnotation().getCropHintsList().stream()
                 .map(c -> PetwiseCropHint.builder()
-                .confidence(c.getConfidence())
-                .build())
+                        .confidence(c.getConfidence())
+                        .build())
                 .collect(Collectors.toList());
     }
 }

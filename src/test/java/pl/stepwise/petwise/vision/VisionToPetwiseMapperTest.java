@@ -1,4 +1,4 @@
-package pl.stepwise.petwise.response;
+package pl.stepwise.petwise.vision;
 
 import com.google.cloud.vision.v1.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,10 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.stepwise.petwise.response.domain.Category;
-import pl.stepwise.petwise.response.domain.PetwiseLabel;
-import pl.stepwise.petwise.response.domain.localizedobject.PetwiseLocalizedObject;
-import pl.stepwise.petwise.response.domain.PetwiseCropHint;
+import pl.stepwise.petwise.vision.model.Category;
+import pl.stepwise.petwise.vision.model.PetwiseLabel;
+import pl.stepwise.petwise.vision.model.localizedobject.PetwiseLocalizedObject;
+import pl.stepwise.petwise.vision.model.PetwiseCropHint;
+import pl.stepwise.petwise.vision.service.LocalizedObjectClassifier;
+import pl.stepwise.petwise.vision.service.VisionToPetwiseMapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class VisionMapperTest {
+class VisionToPetwiseMapperTest {
 
     @Mock
     AnnotateImageResponse annotateImageResponseMock;
@@ -45,11 +47,11 @@ class VisionMapperTest {
     @Mock
     private LocalizedObjectClassifier classifier;
 
-    private VisionMapper visionMapper;
+    private VisionToPetwiseMapper visionMapper;
 
     @BeforeEach
     void setUp() {
-        visionMapper = new VisionMapper(classifier);
+        visionMapper = new VisionToPetwiseMapper(classifier);
     }
 
     @Test

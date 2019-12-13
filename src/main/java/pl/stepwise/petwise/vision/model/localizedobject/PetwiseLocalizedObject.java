@@ -1,10 +1,10 @@
-package pl.stepwise.petwise.response.domain.localizedobject;
+package pl.stepwise.petwise.vision.model.localizedobject;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import pl.stepwise.petwise.response.domain.Category;
+import pl.stepwise.petwise.vision.model.Category;
 
 @EqualsAndHashCode
 @ToString

@@ -1,4 +1,4 @@
-package pl.stepwise.petwise.response.domain;
+package pl.stepwise.petwise.vision.model;
 
 /**
  * This enum helps distinguish objects identified by Vision API as animals.

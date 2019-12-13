@@ -1,4 +1,4 @@
-package pl.stepwise.petwise.response;
+package pl.stepwise.petwise.vision.service;
 
 import com.google.cloud.vision.v1.AnnotateImageResponse;
 import com.google.cloud.vision.v1.Feature;
@@ -8,7 +8,7 @@ import org.springframework.cloud.gcp.vision.CloudVisionTemplate;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
-import pl.stepwise.petwise.exception.PetwiseImageProcessingException;
+import pl.stepwise.petwise.vision.exception.PetwiseImageProcessingException;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

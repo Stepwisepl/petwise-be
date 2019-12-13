@@ -1,10 +1,11 @@
-package pl.stepwise.petwise.response;
+package pl.stepwise.petwise.vision;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.stepwise.petwise.response.domain.Category;
+import pl.stepwise.petwise.vision.model.Category;
+import pl.stepwise.petwise.vision.service.LocalizedObjectClassifier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
