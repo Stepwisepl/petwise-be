@@ -12,6 +12,7 @@ import pl.stepwise.petwise.file.service.FileService;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Log4j2
@@ -39,7 +40,7 @@ public class GoogleStorageService {
     }
 
     private BlobInfo getBlobInfo(String fileName, String contentType) {
-        BlobId blobId = BlobId.of(uploadConfig.getBucketName(), fileName);
+        BlobId blobId = BlobId.of(uploadConfig.getBucketName(), UUID.randomUUID().toString());
         List<Acl> acl = (Collections.singletonList(Acl.of(Acl.User.ofAllUsers(), Acl.Role.OWNER)));
         if (contentType == null) {
             log.warn("Content type of file: " + fileName + " could not be established.");
@@ -48,8 +49,8 @@ public class GoogleStorageService {
         return BlobInfo.newBuilder(blobId).setContentType(contentType).setAcl(acl).build();
     }
 
-    public Blob download(String fileName) {
-        BlobId blobId = BlobId.of(uploadConfig.getBucketName(), fileName);
+    public Blob getFile(String fileId) {
+        BlobId blobId = BlobId.of(uploadConfig.getBucketName(), fileId);
         return storage.get(blobId);
     }
 }

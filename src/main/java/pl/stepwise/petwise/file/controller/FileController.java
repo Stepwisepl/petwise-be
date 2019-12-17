@@ -20,9 +20,9 @@ public class FileController {
         this.storageService = storageService;
     }
 
-    @GetMapping("{fileName}")
-    public ResponseEntity<Resource> get(@PathVariable String fileName) {
-        Blob blob = storageService.download(fileName);
+    @GetMapping("{fileId}")
+    public ResponseEntity<Resource> get(@PathVariable String fileId) {
+        Blob blob = storageService.getFile(fileId);
         var file = blob.getContent();
         return ResponseEntity.ok()
                 .contentLength(file.length)

@@ -27,27 +27,27 @@ public class VisionController {
     }
 
     @GetMapping("labels")
-    public ResponseEntity<List<PetwiseLabel>> detectImageLabels(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException {
-        return ResponseEntity.ok(visionService.detectLabels(filePath));
+    public ResponseEntity<List<PetwiseLabel>> detectImageLabels(@RequestParam("fileid") String fileId) throws PetwiseImageProcessingException {
+        return ResponseEntity.ok(visionService.detectLabels(fileId));
     }
 
     @GetMapping("labels-after-crop")
-    public ResponseEntity<List<PetwiseLabel>> detectImageLabelsAfterCrop(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException, IOException, InvalidLocalizedObjectAmountException {
-        return ResponseEntity.ok(visionService.detectLabelsAfterCroppingObject(filePath));
+    public ResponseEntity<List<PetwiseLabel>> detectImageLabelsAfterCrop(@RequestParam("fileid") String fileId) throws PetwiseImageProcessingException, IOException, InvalidLocalizedObjectAmountException {
+        return ResponseEntity.ok(visionService.detectLabelsAfterCroppingObject(fileId));
     }
 
     @GetMapping("objects")
-    public ResponseEntity<List<PetwiseLocalizedObject>> detectObjectLocalization(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException {
-        return ResponseEntity.ok(visionService.localizeObjects(filePath));
+    public ResponseEntity<List<PetwiseLocalizedObject>> detectObjectLocalization(@RequestParam("fileid") String fileId) throws PetwiseImageProcessingException {
+        return ResponseEntity.ok(visionService.localizeObjects(fileId));
     }
 
     @GetMapping("eligible-object")
-    public ResponseEntity<PetwiseLocalizedObject> detectEligibleObjectLocalization(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException {
-        return ResponseEntity.ok(visionService.getEligibleObject(filePath));
+    public ResponseEntity<PetwiseLocalizedObject> detectEligibleObjectLocalization(@RequestParam("fileid") String fileId) throws PetwiseImageProcessingException {
+        return ResponseEntity.ok(visionService.getEligibleObject(fileId));
     }
 
     @GetMapping("crop")
-    public ResponseEntity<List<PetwiseCropHint>> getCropHints(@RequestParam("filepath") String filePath) throws PetwiseImageProcessingException {
-        return ResponseEntity.ok(visionService.getCropHints(filePath));
+    public ResponseEntity<List<PetwiseCropHint>> getCropHints(@RequestParam("fileid") String fileId) throws PetwiseImageProcessingException {
+        return ResponseEntity.ok(visionService.getCropHints(fileId));
     }
 }

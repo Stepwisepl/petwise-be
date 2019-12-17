@@ -33,11 +33,7 @@ class VisionControllerTest {
     @Timeout(4)
     void shouldGetLabelsForClearImage() throws Exception {
         String route = API_PATH + "labels";
-        mvc.perform(get(route + "?filepath=test-pictures/dog1.jpg"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Beagle")))
-                .andDo(print());
-        mvc.perform(get(route + "?filepath=test-pictures/dog3.jpg"))
+        mvc.perform(get(route + "?fileid=c0e6b876-344d-4010-80c2-0fef6fda9a13"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Beagle")))
                 .andDo(print());
@@ -47,7 +43,7 @@ class VisionControllerTest {
     @Timeout(5)
     void shouldGetLabelsForAutomaticallyCroppedImage() throws Exception {
         String route = API_PATH + "labels-after-crop";
-        mvc.perform(get(route + "?filepath=test-pictures/dog3.jpg"))
+        mvc.perform(get(route + "?fileid=c0e6b876-344d-4010-80c2-0fef6fda9a13"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Beagle")))
                 .andDo(print());
@@ -57,15 +53,11 @@ class VisionControllerTest {
     @Timeout(3)
     void shouldRecognizeDogBreedInProperlyCroppedImage() throws Exception {
         String route = API_PATH + "labels";
-        mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
+        mvc.perform(get(route + "?fileid=83ccb913-421e-484d-806c-bb56ec7f4665"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Chair")))
+                .andExpect(content().string(containsString("Beagle")))
                 .andDo(print());
-        mvc.perform(get(route + "?filepath=test-pictures/dog2-cropped.jpg"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Retriever")))
-                .andDo(print());
-        mvc.perform(get(route + "?filepath=test-pictures/dog2-cropped-properly.png"))
+        mvc.perform(get(route + "?fileid=5ed7f476-c523-4c2f-a748-fb966765f34f"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Beagle")))
                 .andDo(print());
@@ -75,10 +67,9 @@ class VisionControllerTest {
     @Timeout(3)
     void shouldGetObjectsForGivenImage() throws Exception {
         String route = API_PATH + "objects";
-        mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
+        mvc.perform(get(route + "?fileid=c0e6b876-344d-4010-80c2-0fef6fda9a13"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Dog")))
-                .andExpect(content().string(containsString("Pillow")))
                 .andDo(print());
     }
 
@@ -86,7 +77,7 @@ class VisionControllerTest {
     @Timeout(3)
     void shouldGetEligibleObjectForGivenImage() throws Exception {
         String route = API_PATH + "eligible-object";
-        mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
+        mvc.perform(get(route + "?fileid=c0e6b876-344d-4010-80c2-0fef6fda9a13"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Dog")))
                 .andExpect(content().string(containsString("ANIMALS")))
@@ -97,7 +88,7 @@ class VisionControllerTest {
     @Timeout(3)
     void shouldGetCropHintsForGivenImage() throws Exception {
         String route = API_PATH + "crop";
-        mvc.perform(get(route + "?filepath=test-pictures/dog2.jpg"))
+        mvc.perform(get(route + "?fileid=c0e6b876-344d-4010-80c2-0fef6fda9a13"))
                 .andExpect(status().isOk());
     }
 }

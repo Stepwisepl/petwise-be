@@ -12,7 +12,7 @@ The project provides a REST API for the [Petwise Application](https://gitlab.com
 
 ![test-in-postman-labels-request-image](readme-images/postman-labels.png)
 
-* Identifying objects on an image (only names mapped):
+* Identifying objects on an image (name, category and normalized vertices):
 
 ![test-in-postman-objects-request-image](readme-images/postman-objects.png)
 
@@ -27,6 +27,10 @@ The project provides a REST API for the [Petwise Application](https://gitlab.com
 * Uploading a file to the `petwise-resources` bucket
 
 ![test-in-postman-upload-file-image](readme-images/postman-upload-file.png)
+
+* Getting a file from the `petwise-resources` bucket
+
+![test-in-postman-download-file-image](readme-images/postman-download-file.png)
 
 ![bucket-image](readme-images/google-storage-bucket.png)
 
@@ -82,42 +86,36 @@ Run all backend tests with the following command in the root directory:
 $ ./mvnw test
 ```
 
-You can also start the application and manually test the API in Postman - using photos that are already provided for you in the `resources` directory:
-![test-in-postman-image](readme-images/test-in-postman.png)
+You can also start the application and manually test the API in Postman, upload your file to the bucket:
+
+![test-in-postman-upload-file-image](readme-images/postman-upload-file.png)
+
+and use the `UUID` (here: `5ed7f476-c523-4c2f-a748-fb966765f34f`) in the response to call for labels, objects or crop hints.
 
 ### List of urls that will work
 #### Labels
-* `http://localhost:8080/api/vision/labels?filepath=test-pictures/dog1.jpg`
-* `http://localhost:8080/api/vision/labels?filepath=test-pictures/dog2.jpg`
-* `http://localhost:8080/api/vision/labels?filepath=test-pictures/dog2-cropped.jpg`
-* `http://localhost:8080/api/vision/labels?filepath=test-pictures/dog2-cropped-properly.png`
-* `http://localhost:8080/api/vision/labels?filepath=test-pictures/dog3.jpg`
+* `http://localhost:8080/api/vision/labels?fileid=5ed7f476-c523-4c2f-a748-fb966765f34f`
 #### Localized objects
-* `http://localhost:8080/api/vision/objects?filepath=test-pictures/dog1.jpg`
-* `http://localhost:8080/api/vision/objects?filepath=test-pictures/dog2.jpg`
-* `http://localhost:8080/api/vision/objects?filepath=test-pictures/dog2-cropped.jpg`
-* `http://localhost:8080/api/vision/objects?filepath=test-pictures/dog2-cropped-properly.png`
-* `http://localhost:8080/api/vision/objects?filepath=test-pictures/dog3.jpg`
+* `http://localhost:8080/api/vision/objects?fileid=5ed7f476-c523-4c2f-a748-fb966765f34f`
 #### Eligible localized objects
-* `http://localhost:8080/api/vision/eligible-object?filepath=test-pictures/dog1.jpg`
-* `http://localhost:8080/api/vision/eligible-object?filepath=test-pictures/dog2.jpg`
-* `http://localhost:8080/api/vision/eligible-object?filepath=test-pictures/dog2-cropped.jpg`
-* `http://localhost:8080/api/vision/eligible-object?filepath=test-pictures/dog2-cropped-properly.png`
-* `http://localhost:8080/api/vision/eligible-object?filepath=test-pictures/dog3.jpg`
+* `http://localhost:8080/api/vision/eligible-object?fileid=5ed7f476-c523-4c2f-a748-fb966765f34f`
 #### Crop hints
-* `http://localhost:8080/api/vision/crop?filepath=test-pictures/dog1.jpg`
-* `http://localhost:8080/api/vision/crop?filepath=test-pictures/dog2.jpg`
-* `http://localhost:8080/api/vision/crop?filepath=test-pictures/dog2-cropped.jpg`
-* `http://localhost:8080/api/vision/crop?filepath=test-pictures/dog2-cropped-properly.png`
-* `http://localhost:8080/api/vision/crop?filepath=test-pictures/dog3.jpg`
+* `http://localhost:8080/api/vision/crop?fileid=5ed7f476-c523-4c2f-a748-fb966765f34f`
 ### File upload
-* `http://localhost:8080/api/file/upload`
+* `http://localhost:8080/api/file/`
+
+Method: `POST`
 
 Body: `form data`
 
 Key: `file`
 
 Value: `your-image.png`
+
+### File download
+* `http://localhost:8080/api/file/5ed7f476-c523-4c2f-a748-fb966765f34f`
+
+Method: `GET`
 
 ## API documentation
 

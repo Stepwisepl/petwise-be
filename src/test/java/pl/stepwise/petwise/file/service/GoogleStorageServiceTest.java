@@ -81,6 +81,7 @@ class GoogleStorageServiceTest {
         given(storageMock.get(any(BlobId.class)))
                 .willReturn(blobMock);
         //when
-        storageService.download("test.png");
+        Blob blob = storageService.getFile("1234567");
+        assertNotNull(blob);
     }
 }
