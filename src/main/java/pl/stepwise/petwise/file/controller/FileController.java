@@ -1,31 +1,37 @@
 package pl.stepwise.petwise.file.controller;
 
+import com.google.cloud.storage.Blob;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.stepwise.petwise.file.exception.FileUploadException;
-import pl.stepwise.petwise.file.service.upload.GoogleStorageUploader;
+import pl.stepwise.petwise.file.service.upload.GoogleStorageService;
 
 @RestController
 @RequestMapping(value = "api/file", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FileController {
 
-    private final GoogleStorageUploader uploader;
+    private final GoogleStorageService storageService;
 
-    public FileController(GoogleStorageUploader uploader) {
-        this.uploader = uploader;
+    public FileController(GoogleStorageService storageService) {
+        this.storageService = storageService;
     }
 
-    @PostMapping("upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-        try {
-            return ResponseEntity.ok(uploader.upload(file).getMediaLink());
-        } catch (FileUploadException e) {
-            return ResponseEntity.ok("error");
-        }
+    @GetMapping("{fileName}")
+    public ResponseEntity<Resource> get(@PathVariable String fileName) {
+        Blob blob = storageService.download(fileName);
+        var file = blob.getContent();
+        return ResponseEntity.ok()
+                .contentLength(file.length)
+                .contentType(MediaType.parseMediaType(blob.getContentType()))
+                .body(new ByteArrayResource(file));
+    }
+
+    @PostMapping
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws FileUploadException {
+        return ResponseEntity.ok(storageService.upload(file).getMediaLink());
     }
 }

@@ -1,6 +1,7 @@
 package pl.stepwise.petwise.file.service;
 
 import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,8 +13,7 @@ import pl.stepwise.petwise.config.FileUploadConfiguration;
 import pl.stepwise.petwise.file.exception.FileServiceException;
 import pl.stepwise.petwise.file.exception.FileUploadException;
 import pl.stepwise.petwise.file.exception.StorageProviderException;
-import pl.stepwise.petwise.file.service.upload.GoogleStorageUploader;
-import pl.stepwise.petwise.file.service.upload.StorageProvider;
+import pl.stepwise.petwise.file.service.upload.GoogleStorageService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,9 +25,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
-class GoogleStorageUploaderTest {
+class GoogleStorageServiceTest {
 
-    private GoogleStorageUploader uploader;
+    private GoogleStorageService storageService;
 
     @Mock
     private FileUploadConfiguration uploadConfigurationMock;
@@ -36,17 +36,19 @@ class GoogleStorageUploaderTest {
     private FileService fileServiceMock;
 
     @Mock
-    private StorageProvider storageProviderMock;
+    private Storage storageMock;
 
     @Mock
-    private Storage storageMock;
+    private Blob blobMock;
 
     @Mock
     private MultipartFile fileMock;
 
     @BeforeEach
     void setUp() {
-        uploader = new GoogleStorageUploader(uploadConfigurationMock, fileServiceMock, storageProviderMock);
+        storageService = new GoogleStorageService(uploadConfigurationMock, fileServiceMock, storageMock);
+        given(uploadConfigurationMock.getBucketName())
+                .willReturn("bucket");
     }
 
     @Test
@@ -54,16 +56,11 @@ class GoogleStorageUploaderTest {
         //given
         given(fileServiceMock.getFileName(fileMock))
                 .willReturn("file.png");
-        given(uploadConfigurationMock.getBucketName())
-                .willReturn("bucket");
         byte[] imageBytes = getBytes();
-        Blob blobMock = mock(Blob.class);
-        given(storageProviderMock.get())
-                .willReturn(storageMock);
         given(storageMock.create(any(), eq(imageBytes)))
                 .willReturn(blobMock);
         //when
-        Blob blob = uploader.upload(fileMock);
+        Blob blob = storageService.upload(fileMock);
         //then
         assertNotNull(blob);
     }
@@ -76,5 +73,14 @@ class GoogleStorageUploaderTest {
         given(inputStreamMock.readAllBytes())
                 .willReturn(imageBytes);
         return imageBytes;
+    }
+
+    @Test
+    void shouldCallAllFunctionsRequiredToFinalizeFileDownload() {
+        //given
+        given(storageMock.get(any(BlobId.class)))
+                .willReturn(blobMock);
+        //when
+        storageService.download("test.png");
     }
 }

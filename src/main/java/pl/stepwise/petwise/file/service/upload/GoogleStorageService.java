@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.stepwise.petwise.config.FileUploadConfiguration;
 import pl.stepwise.petwise.file.exception.FileServiceException;
 import pl.stepwise.petwise.file.exception.FileUploadException;
-import pl.stepwise.petwise.file.exception.StorageProviderException;
 import pl.stepwise.petwise.file.service.FileService;
 
 import java.io.IOException;
@@ -16,26 +15,25 @@ import java.util.List;
 
 @Service
 @Log4j2
-public class GoogleStorageUploader implements FileUploader<Blob, MultipartFile> {
+public class GoogleStorageService {
 
     private final FileUploadConfiguration uploadConfig;
     private final FileService fileService;
-    private final StorageProvider storageProvider;
+    private final Storage storage;
 
-    public GoogleStorageUploader(FileUploadConfiguration uploadConfig,
-                                 FileService fileService,
-                                 StorageProvider storageProvider) {
+    public GoogleStorageService(FileUploadConfiguration uploadConfig,
+                                FileService fileService,
+                                Storage storage) {
         this.uploadConfig = uploadConfig;
         this.fileService = fileService;
-        this.storageProvider = storageProvider;
+        this.storage = storage;
     }
 
     public Blob upload(MultipartFile file) throws FileUploadException {
         try {
             BlobInfo blobInfo = getBlobInfo(fileService.getFileName(file), file.getContentType());
-            Storage storage = storageProvider.get();
             return storage.create(blobInfo, file.getInputStream().readAllBytes());
-        } catch (FileServiceException | StorageException | StorageProviderException | IOException e) {
+        } catch (FileServiceException | StorageException | IOException e) {
             throw new FileUploadException("File upload failed with the following exception:", e);
         }
     }
@@ -48,5 +46,10 @@ public class GoogleStorageUploader implements FileUploader<Blob, MultipartFile> 
             contentType = "image/*";
         }
         return BlobInfo.newBuilder(blobId).setContentType(contentType).setAcl(acl).build();
+    }
+
+    public Blob download(String fileName) {
+        BlobId blobId = BlobId.of(uploadConfig.getBucketName(), fileName);
+        return storage.get(blobId);
     }
 }
