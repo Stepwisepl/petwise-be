@@ -33,6 +33,23 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.4.10.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-spatial</artifactId>
+			<version>5.4.10.Final</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.graphhopper.external/jackson-datatype-jts -->
+		<dependency>
+			<groupId>com.graphhopper.external</groupId>
+			<artifactId>jackson-datatype-jts</artifactId>
+			<version>1.0-2.7</version>
+		</dependency>
+
+		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.9.2</version>
@@ -48,6 +65,7 @@
 			<version>1.18.10</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-gcp-starter-vision</artifactId>
@@ -87,6 +105,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>4.0.3</version>
 			</plugin>
 		</plugins>
 	</build>

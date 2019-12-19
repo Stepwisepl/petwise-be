@@ -74,7 +74,7 @@ public class VisionService {
         return visionMapper.mapToLabels(responseWithLabels);
     }
 
-    public PetwiseLocalizedObject getEligibleObject(ByteArrayResource resource) throws PetwiseImageProcessingException {
+    private PetwiseLocalizedObject getEligibleObject(ByteArrayResource resource) throws PetwiseImageProcessingException {
         AnnotateImageResponse response = visionClient.localizeObjects(resource);
         List<PetwiseLocalizedObject> objects = visionMapper.mapToLocalizedObjects(response);
         return objects.stream()
@@ -84,10 +84,6 @@ public class VisionService {
 
     public PetwiseLocalizedObject getEligibleObject(String fileId) throws PetwiseImageProcessingException {
         var resource = new ByteArrayResource(storageService.getFile(fileId).getContent());
-        AnnotateImageResponse response = visionClient.localizeObjects(resource);
-        List<PetwiseLocalizedObject> objects = visionMapper.mapToLocalizedObjects(response);
-        return objects.stream()
-                .filter(PetwiseLocalizedObject::hasEligibleCategory)
-                .findFirst().orElse(null);
+        return getEligibleObject(resource);
     }
 }
