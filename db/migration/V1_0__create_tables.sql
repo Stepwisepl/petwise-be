@@ -16,12 +16,13 @@ create table pet (
     primary key (id)
 );
 
-create sequence pet_spotted_notification_seq start 1 increment 1;
-create table pet_spotted_notification (
-   id int8 not null DEFAULT NEXTVAL('pet_spotted_notification_seq'),
-    place_of_finding GEOMETRY,
-    time_of_finding timestamp,
+create sequence spotted_report_seq start 1 increment 1;
+create table spotted_report (
+   id int8 not null DEFAULT NEXTVAL('spotted_report_seq'),
+    place_of_finding GEOMETRY not null,
+    time_of_finding timestamp not null,
     missing_report_id int8,
+    image_id varchar(255) not null,
     primary key (id)
 );
 
@@ -30,7 +31,7 @@ alter table missing_report
    foreign key (pet_id)
    references pet;
 
-alter table pet_spotted_notification
+alter table spotted_report
    add constraint FKtb4lsm0hkfr6ehbym95u583f
    foreign key (missing_report_id)
    references missing_report;

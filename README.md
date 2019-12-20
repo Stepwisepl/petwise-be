@@ -151,8 +151,8 @@ Key: `name`
 
 Value: `Mr Cuddles`
 
-### Adding missing report
-* `http://localhost:8080/api/pet/missing`
+### Adding "missing report"
+* `http://localhost:8080/api/missing`
 
 Method: `POST`
 Body:
@@ -166,6 +166,67 @@ Body:
          2.3456789
       ]
    }
+}
+```
+
+### Adding "spotted report"
+* `http://localhost:8080/api/missing`
+
+Method: `POST`
+
+Body: `form data`
+
+Key: `file`
+
+Value: `your-image.png`
+
+Key: `coordinate1`
+
+Value: `1.001`
+
+Key: `coordinate2`
+
+Value: `2.002`
+
+### Getting a pet by id
+* `http://localhost:8080/api/pet/1`
+
+Method: `GET`
+
+### Getting list of "spotted reports"
+* `http://localhost:8080/api/spotted/within-radius`
+
+Method: `GET`
+
+Body:
+```
+{
+	"location": {
+	    "type": "Point",
+	    "coordinates": [
+	        1.2345678,
+	        2.3456789
+	    ]
+	}
+}
+```
+
+
+### Getting list of "missing reports"
+* `http://localhost:8080/api/missing/within-radius`
+
+Method: `GET`
+
+Body:
+```
+{
+	"location": {
+	    "type": "Point",
+	    "coordinates": [
+	        1.2345678,
+	        2.3456789
+	    ]
+	}
 }
 ```
 
@@ -202,6 +263,8 @@ Remove the `postgres` directory from the `data` directory placed in the project 
 ## To do
 * Stabilize docker environment
 * Add feature that enables users to remove their data (delete user account). If legally possible, leave anonymised entries for missing reports, and resolved cases (for statistics).
+* Fix hibernate sequence.
+* Decide about custom point and custom geometry serialization to avoid using not official dependency.
 
 ## Possible limitations
 Google Vision API seems not to provide similarity recognition. Objects on images can be labelled but there is no way of finding similarity between them in the API response.

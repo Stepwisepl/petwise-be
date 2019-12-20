@@ -27,7 +27,7 @@ public class MissingReport {
     private Pet pet;
 
     @OneToMany(mappedBy = "missingReport")
-    private List<PetSpottedNotification> notifications;
+    private List<SpottedReport> spottedReports;
 
     @NotNull
     private Point placeOfMissing;

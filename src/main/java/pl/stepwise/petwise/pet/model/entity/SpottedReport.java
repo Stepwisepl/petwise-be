@@ -4,6 +4,7 @@ import lombok.*;
 import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode
@@ -13,17 +14,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Entity
-public class PetSpottedNotification {
+public class SpottedReport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_spotted_notification_seq")
-    @SequenceGenerator(name = "pet_spotted_notification_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "spotted_report_seq")
+    @SequenceGenerator(name = "spotted_report_seq")
     private Long id;
 
     @ManyToOne
     private MissingReport missingReport;
 
+    @NotNull
     private Point placeOfFinding;
 
+    @NotNull
     private LocalDateTime timeOfFinding;
+
+    @NotNull
+    private String imageId;
 }

@@ -22,9 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class VisionControllerTest {
 
     @Autowired
-    VisionController controller;
-
-    @Autowired
     private MockMvc mvc;
 
     private static String API_PATH = "/api/vision/";
