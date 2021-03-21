@@ -268,9 +268,17 @@ Remove the `postgres` directory from the `data` directory placed in the project 
 
 ## Possible limitations
 Google Vision API seems not to provide similarity recognition. Objects on images can be labelled but there is no way of finding similarity between them in the API response.
+This feature should be implemented in order to achive project goals. 
 To consider:
+* [A Deep Learning Approach for Dog Face Verification and Recognition](https://www.researchgate.net/publication/335361411_A_Deep_Learning_Approach_for_Dog_Face_Verification_and_Recognition)
 * [Amazon Rekognition Image](https://aws.amazon.com/rekognition/image-features/?nc=sn&loc=3&dn=2)
 * [Comparison of Image Recognition APIs on food images](https://bytes.grubhub.com/https-medium-com-rohan-kulkarni-comparison-of-image-recognition-apis-on-food-images-cddc9105fc33)
 
 Other applications for determining pet breeds:
 * [Dog Scanner](https://play.google.com/store/apps/details?id=com.siwalusoftware.dogscanner&hl=pl)
+
+## Can I contribute to this project ? 
+
+Petwise is a fully open-source project, and we welcome contributions.
+Information on how to get started can be found at our
+[contributor guide](CONTRIBUTING.md).
